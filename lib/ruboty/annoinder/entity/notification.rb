@@ -25,6 +25,8 @@ module Ruboty
 
         def got_it(username)
           @target.members = @target.members - [at(username)]
+          p "@target.members"
+          p @target.members
         end
 
         def at(username)
