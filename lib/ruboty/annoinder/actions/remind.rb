@@ -1,7 +1,7 @@
 module Ruboty
   module Annoinder
     module Actions
-      class Remind < Ruboty::Actions::Base
+      class Remind < Ruboty::Actions::AnnoinderBase
         def call
           message.reply(remind)
         rescue => e
@@ -10,7 +10,10 @@ module Ruboty
 
         private
         def remind
-          # TODO: main logic
+          notification = Ruboty::Annoinder::Entity::Notification.get_instance(message.body)
+          repository = Ruboty::Annoinder::Repository::Notification.new(robot.brain)
+          repository.save_notification(notification)
+          return "記憶しました。"
         end
       end
     end

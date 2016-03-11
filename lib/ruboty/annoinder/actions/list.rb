@@ -1,7 +1,7 @@
 module Ruboty
   module Annoinder
     module Actions
-      class List < Ruboty::Actions::Base
+      class List < Ruboty::Actions::AnnoinderBase
         def call
           message.reply(list)
         rescue => e
@@ -10,7 +10,9 @@ module Ruboty
 
         private
         def list
-          # TODO: main logic
+          repository = Ruboty::Annoinder::Repository::Notification.new(robot.brain)
+          notifications = repository.find_notifications
+          return notifications.map(&:to_s)
         end
       end
     end
